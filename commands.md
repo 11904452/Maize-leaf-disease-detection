@@ -1,0 +1,4 @@
+- cd src
+- py -m envs\env
+- env\Scripts\activate
+- python app.py
