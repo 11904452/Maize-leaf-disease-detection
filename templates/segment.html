@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Maize leaf Segmentation</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("static/images/binary.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Style the top navigation bar */
+    .topnav {
+      background-color: #0da82e;
+      border-radius: 10px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    .topnav_left {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Style the links in the navigation bar */
+    .topnav a {
+      float: right;
+      display: block;
+      color: #fff;
+      text-align: center;
+      padding: 0px 16px;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    /* Change the color of the links on hover */
+    .topnav a:hover {
+      color: #f3a109;
+
+    }
+
+    h1 {
+      color: #fff;
+      margin: 0;
+      text-align: center;
+      /* center align horizontally */
+      flex-grow: 1;
+      /* take up remaining horizontal space */
+    }
+
+    form {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 50px;
+      justify-content: space-evenly;
+    }
+
+    /* Style the file input */
+    input[type="file"] {
+      padding: 10px 12px;
+      border-radius: 5px;
+      border: none;
+      background-color: #0da82e;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 40px;
+    }
+
+
+    #container>img {
+      border: 6px solid #f3a109;
+      border-radius: 5px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+
+    button[type="submit"] {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0da82e;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #087820;
+    }
+
+    form>h2 {
+      padding: 10px 20px;
+      font-size: 30px;
+      transform: scale(1);
+    }
+
+    .button:hover {
+      background-color: #087820;
+      color: whitesmoke;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #output {
+      padding: 10px 12px;
+      border-radius: 5px;
+      border: none;
+      background-color: #0da82e;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topnav">
+    <div class="topnav_left">
+      <img src="static/images/logo.png" style="width: 40px; float: left;">
+      <a href="#" style="float: left;">Disease Segmentation</a>
+    </div>
+  </div>
+  <form method="post" enctype="multipart/form-data">
+    <span id="container">
+      <input type="file" name="image" id="image-input" accept="image/*" required>
+      <img id="image-preview" width="300" height="300">
+    </span>
+    <button type="submit" value="process">Process</button>
+    <span id="container">
+      <h1 id="output">OUTPUT</h1>
+      <img id="result" style="display: none;">
+    </span>
+
+  </form>
+
+  </div>
+  <script>
+
+    function display_result(result) {
+      console.log(result);
+      var img = document.getElementById('result');
+      img.style.display = "block";
+      img.src = "data:image/jpg;base64," + result;
+      img.width = 300;
+      img.height = 300;
+    }
+
+    $(function () {
+      // Function to preview the uploaded image
+      function preview_image(event) {
+
+        // Reset the displayed result
+        var res = document.getElementById('result');
+        res.src = "";
+        res.width = "";
+        res.height = "";
+
+        var reader = new FileReader();
+        reader.onload = function () {
+          var output = document.getElementById('image-preview');
+          output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+      }
+      // Bind the function to the file input
+      var file_input = document.getElementById('image-input');
+      file_input.addEventListener('change', preview_image);
+
+      // Bind the function to the form submit event
+      $('form').on('submit', function (e) {
+        e.preventDefault();
+        var form_data = new FormData(this);
+        $.ajax({
+          type: 'POST',
+          url: '/segment.html',
+          data: form_data,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function (data) {
+            display_result(data);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Maize Leaf Disease Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("static/images/index.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+        /* Style the top navigation bar */
+        .topnav {
+            background-color: #0da82e;
+            border-radius: 10px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 10px;
+
+        }
+
+        .topnav_left {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Style the links in the navigation bar */
+        .topnav a {
+            float: right;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 0px 16px;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        /* Change the color of the links on hover */
+        .topnav a:hover {
+            color: #f3a109;
+
+        }
+
+        .center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 120px);
+        }
+
+        h1 {
+            font-size: 48px;
+            text-align: center;
+            margin: 0;
+            color: #0da82e;
+        }
+
+
+
+        p {
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .button-container>a {
+            text-decoration: none;
+        }
+
+        .button {
+            padding: 20px 40px;
+            width: 320px;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            background-color: #0da82e;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #087820;
+            color: whitesmoke;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topnav">
+        <div class="topnav_left">
+            <img src="static/images/logo.png" style="width: 40px; float: left;">
+            <a href="#" style="float: left;">Maize Leaf Disease Detection</a>
+        </div>
+    </div>
+    <div class="center">
+        <h1>Maize Leaf Disease Detection</h1>
+        <h2>Selct any option:</h2>
+        <div class="button-container">
+            <a href="binary.html" class="button">Binary Classification</a>
+            <a href="multi.html" class="button">Multi-Class Classification</a>
+            <a href="segment.html" class="button">Disease Segmentation</a>
+        </div>
+    </div>
+</body>
+
+</html>
